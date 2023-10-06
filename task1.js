@@ -44,11 +44,28 @@ const users = [
 }
 ]
 
-const result = [{}]
+const userTotals = {};
 
-for (const value of Object.values(transactions)){
-    result.push(value.total)
-}
+transactions.forEach(transaction => {
+  const { userId, total } = transaction;
+  if (userTotals[userId]) {
+    userTotals[userId] += total;
+  } else {
+    userTotals[userId] = total;
+  }
+  console.log(userTotals)
+});
+
+// Map the users to include the total from the dictionary
+const result = users.map(user => ({
+  id: user.id,
+  name: user.name,
+  total: userTotals[user.id] || 0, // Default to 0 if no transactions for the user
+}));
+
+console.log(result);
+
+
 
 
      
